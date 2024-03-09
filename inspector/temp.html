@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+</head>
+
+<body>
+  <script>
+    function arePathsColliding(path1, path2) {
+      const intersectionPoints = [];
+
+      // Extract path data
+      const path1Data = path1.getPathData();
+      const path2Data = path2.getPathData();
+
+      // Iterate through each path's commands
+      path1Data.forEach(command1 => {
+        path2Data.forEach(command2 => {
+          const intersection = calculateIntersection(command1, command2);
+          if (intersection) {
+            intersectionPoints.push(intersection);
+          }
+        });
+      });
+
+      return {
+        intersection: intersectionPoints,
+        isColliding: intersectionPoints.length > 0,
+      };
+    }
+
+    function calculateIntersection(command1, command2) {
+      if (command1.type === "M" || command2.type === "M") {
+        // 'M' (Move To) commands do not contribute to intersections
+        return null;
+      }
+
+      if (command1.type === "L" && command2.type === "L") {
+        return calculateLineIntersection(
+          command1.values[0],
+          command1.values[1],
+          command1.values[2],
+          command1.values[3],
+          command2.values[0],
+          command2.values[1],
+          command2.values[2],
+          command2.values[3]
+        );
+      }
+
+      // Add more cases for other path command types, e.g., 'C' (Cubic Bezier)
+
+      return null;
+    }
+
+    function calculateLineIntersection(x1, y1, x2, y2, x3, y3, x4, y4) {
+      const denominator = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4);
+
+      if (denominator === 0) {
+        // Lines are parallel, no intersection
+        return null;
+      }
+
+      const intersectX =
+        ((x1 * y2 - y1 * x2) * (x3 - x4) - (x1 - x2) * (x3 * y4 - y3 * x4)) /
+        denominator;
+      const intersectY =
+        ((x1 * y2 - y1 * x2) * (y3 - y4) - (y1 - y2) * (x3 * y4 - y3 * x4)) /
+        denominator;
+
+      return { x: intersectX, y: intersectY };
+    }
+
+
+    // Example usage:
+    const path1 = new Path2D("M0 0 L50 50");
+    const path2 = new Path2D("M0 50 L50 0");
+
+    const collisionResult = arePathsColliding(path1, path2);
+    console.log(collisionResult);
+  </script>
+
+</body>
+
+</html>

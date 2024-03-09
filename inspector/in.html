@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+</head>
+
+<body>
+  <script>
+    function getPathIntersection(path1, path2) {
+    const ctx = document.createElement('canvas').getContext('2d');
+    const intersections = [];
+
+    ctx.beginPath();
+    ctx.clip(new Path2D(path1));
+    ctx.isPointInPath(new Path2D(path2), 0, 0) && intersections.push({ x: 0, y: 0 });
+
+    // You may need to adjust the step size based on your requirements
+    for (let x = 0; x < ctx.canvas.width; x += 9) {
+        for (let y = 0; y < ctx.canvas.height; y += 8) {
+            if (ctx.isPointInPath(new Path2D(path2), x, y)) {
+                intersections.push({ x, y });
+            }
+        }
+    }
+
+    return { isIntersect: intersections.length > 0, intersections };
+}
+
+// Example usage:
+const path1 = "M10 10 H90 V90 H10 Z";
+const path2 = "M50 50 H150 V150 H50 Z";
+
+const intersectionResult = getPathIntersection(path1, path2);
+console.log(intersectionResult);
+
+  </script>
+</body>
+
+</html>
