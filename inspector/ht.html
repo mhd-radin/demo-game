@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    canvas {
+      border: 1px solid #000;
+    }
+  </style>
+  <title>Advanced Physics Engine</title>
+</head>
+<body>
+  <canvas id="physicsCanvas" width="600" height="400"></canvas>
+  <script>
+    const canvas = document.getElementById('physicsCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Particle object
+    function Particle(x, y, radius, color, mass) {
+      this.x = x;
+      this.y = y;
+      this.radius = radius;
+      this.color = color;
+      this.mass = mass;
+      this.velocity = { x: 0, y: 0 };
+    }
+
+    // Gravity acceleration
+    const gravity = 0.2;
+
+    // Damping factor (air resistance)
+    const damping = 0.98;
+
+    // Friction coefficient
+    const friction = 0.8;
+
+    // Draw method for Particle
+    Particle.prototype.draw = function () {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      ctx.fillStyle = this.color;
+      ctx.fill();
+      ctx.closePath();
+    };
+
+    // Apply forces to Particle
+    Particle.prototype.applyForces = function () {
+      // Gravity
+      this.velocity.y += gravity;
+
+      // Damping (air resistance)
+      this.velocity.x *= damping;
+      this.velocity.y *= damping;
+
+      // Friction
+      this.velocity.x *= friction;
+    };
+
+    // Update method for Particle
+    Particle.prototype.update = function () {
+      this.x += this.velocity.x;
+      this.y += this.velocity.y;
+
+      // Bounce off the walls
+      if (this.x - this.radius < 0 || this.x + this.radius > canvas.width) {
+        this.velocity.x = -this.velocity.x;
+      }
+
+      if (this.y - this.radius < 0 || this.y + this.radius > canvas.height) {
+        this.velocity.y = -this.velocity.y;
+      }
+    };
+
+    // Array to store particles
+    const particles = [];
+
+    // Create particles
+    for (let i = 0; i < 20; i++) {
+      const radius = 10;
+      const x = Math.random() * (canvas.width - 2 * radius) + radius;
+      const y = Math.random() * (canvas.height - 2 * radius) + radius;
+      const color = `rgba(${Math.random() * 255},${Math.random() * 255},${Math.random() * 255},1)`;
+      const mass = Math.random() * 5 + 1;
+
+      particles.push(new Particle(x, y, radius, color, mass));
+    }
+
+    // Animation loop
+    function animate() {
+      requestAnimationFrame(animate);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Update and draw each particle
+      particles.forEach(particle => {
+        particle.applyForces();
+        particle.update();
+        particle.draw();
+      });
+    }
+
+    animate();
+  </script>
+</body>
+</html>
