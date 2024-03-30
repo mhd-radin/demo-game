@@ -17,19 +17,6 @@ ws.SCRIPT_GAME_PAGE = new Script(function() {
   
   allPlayers.push(player)
   
-  function getVehicleAssetByName(name = '') {
-  	var splitedStr = name.split('.');
-  	//console.log(name)
-  	return ws.ASSETS.vehicles[splitedStr[0]][splitedStr[1]]
-  }
-  
-  
-  function createImageByAsset(asset) {
-    var img = new Image();
-    img.src = asset.path;
-    return img;
-  }
-  
   allPlayers.forEach(function (player = new Player(), i) {
   var currentFrame = player.currentFrame;
   var img = createImageByAsset(getVehicleAssetByName(player.assetName));

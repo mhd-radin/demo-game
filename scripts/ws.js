@@ -3,6 +3,7 @@ const ws = {
   PATH_CLASSES: '/scripts/classes/',
   PATH_PAGES: '/scripts/pages/',
   PATH_ASSET_IMAGES: '/assets/sources/',
+  PATH_METHODS: '/scripts/methods/',
   STORE_CLASSIC_ENTITY: app.classicStore,
   SCRIPT_HOME_PAGE: null,
   SCRIPT_GAME_PAGE: null,
@@ -11,8 +12,8 @@ const ws = {
   APP: app,
   CTX: ctx,
   VERSION: '1.0',
-  EVENT_ON_FILE_LOADS,
-  EVENT_ON_FILE_LOAD_FINSHED,
+  EVENT_ON_FILE_LOADS: ()=>{},
+  EVENT_ON_FILE_LOAD_FINSHED: ()=>{},
   ASSETS: {
     vehicles: {
       skiber: {

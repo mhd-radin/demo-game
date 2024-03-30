@@ -55,7 +55,7 @@ let app = {
       onloadfile: ()=>{}
     }) {
 
-      if (pathArr.length == 0) throw "parameter 'pathArr' is undefined";
+      if (pathArr.length == 0) throw "ERROR: parameter 'pathArr' is undefined :: 'pathArr' is empty array or undefined ";
       var loadIndex = 0;
 
       function load(path) {
