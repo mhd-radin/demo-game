@@ -9,7 +9,7 @@ class Player {
    action = 'idle';
    _assetName = 'skiber.idle';
   //assetName = 'skiber.idle';
-  set assetName(name) {
+  set assetName(name) { 
     var splitedStr = name.split('.');
     this.vehicle = splitedStr[0];
     this.action = splitedStr[1];
@@ -35,5 +35,5 @@ class Player {
 
 var pl = new Player();
 pl.assetName = 'skiber.move'
-pl.currentFrame = 9
+pl.currentFrame = 9;
 console.log(pl)

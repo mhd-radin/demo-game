@@ -11,6 +11,8 @@ const ws = {
   APP: app,
   CTX: ctx,
   VERSION: '1.0',
+  EVENT_ON_FILE_LOADS,
+  EVENT_ON_FILE_LOAD_FINSHED,
   ASSETS: {
     vehicles: {
       skiber: {

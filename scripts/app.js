@@ -49,10 +49,47 @@ let app = {
       var style = document.createElement('style');
       style.innerHTML = CSS_String;
       document.head.appendChild(style);
+    },
+    loader(pathArr = [], opt = {
+      onfinish: () => {},
+      onloadfile: ()=>{}
+    }) {
+
+      if (pathArr.length == 0) throw "parameter 'pathArr' is undefined";
+      var loadIndex = 0;
+
+      function load(path) {
+
+        app.connectScript(path).onload = function() {
+          // new file loaded
+          loadIndex += 1;
+          if (opt.onloadfile instanceof Function || typeof opt.onloadfile == 'function') opt.onloadfile({
+            path,
+            loadIndex
+          });
+          if (pathArr[loadIndex]) {
+            load(pathArr[loadIndex]);
+          }
+          if (loadIndex == (pathArr.length - 1)) {
+            // finshid
+            if (opt.onfinish instanceof Function || typeof opt.onfinish == 'function') opt.onfinish();
+          }
+        }
+      }
+
+      load(pathArr[loadIndex]);
     }
+  },
+  time: {
+    pastSec: Date.now(),
+    nowSec: Date.now(),
+    dt: 0.03,
   },
   events: {
 
+  },
+  log(msg) {
+    document.getElementById('log').innerHTML = msg;
   },
   fillscreen() {
     c.width = innerWidth * this.scale;
@@ -67,8 +104,14 @@ let app = {
     ctx.scale(app.scale, app.scale);
     ctx.save();
     this.update();
+
+    setInterval(function() {
+      window.requestAnimationFrame(ws.UPDATE_APP);
+    }, (1000 / 45));
   },
   update() {
+    app.time.nowSec = performance.now();
+
     ws.APP.fillscreen();
     ctx.scale(app.scale, app.scale);
     ctx.save();
@@ -98,9 +141,9 @@ let app = {
         ctx.restore();
       }
     }
-    setTimeout(function() {
-      window.requestAnimationFrame(ws.UPDATE_APP);
-    }, (1000 / 60))
+
+    app.time.pastSec = performance.now();
+    app.time.dt = (app.time.pastSec - app.time.nowSec)
   },
   connectScript(srcURL) {
     var script = document.createElement('script');
@@ -110,14 +153,33 @@ let app = {
   },
 }
 
+// app.use.loader([
+//   'scripts/ws.js',
+//   'scripts/events.js',
+// ], {
+//   onfinish: () => {
+//     app.use.loader([
+//       ws.PATH_CLASSES + 'common_class.js',
+//       ws.PATH_CLASSES + 'player.js',
+//       ws.PATH_PAGES + 'home.js'
+//   ], {
+//       onfinish: () => {
+//         app.init();
+//         ws.SCRIPT_HOME_PAGE.run();
+//       }
+//     })
+//   }
+// })
 
 app.connectScript('scripts/ws.js').onload = function() {
   app.connectScript('scripts/events.js').onload = function() {
     app.connectScript(ws.PATH_CLASSES + 'common_class.js').onload = () => {
       app.connectScript(ws.PATH_CLASSES + 'player.js').onload = () => {
         app.connectScript(ws.PATH_PAGES + 'home.js').onload = function() {
-          app.init();
-          ws.SCRIPT_HOME_PAGE.run();
+          app.connectScript('scripts/methods/connectCommonScripts.js').onload = function() {
+            app.init();
+            ws.SCRIPT_HOME_PAGE.run();
+          }
         }
       }
     }
