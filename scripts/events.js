@@ -31,32 +31,32 @@ class EventEmitter {
   }
 }
 
-var emitter = app.events = new EventEmitter();
+var emitter = (app.events = new EventEmitter());
 const EventController = emitter;
 
-c.addEventListener('touchstart', function(e) {
+c.addEventListener("touchstart", function (e) {
   var x = e.touches[0].clientX;
   var y = e.touches[0].clientY;
   e.x = x;
   e.y = y;
 
-  emitter.emit('ts', e)
-})
+  emitter.emit("ts", e);
+});
 
-c.addEventListener('touchmove', function(e) {
+c.addEventListener("touchmove", function (e) {
   var x = e.changedTouches[0].clientX;
   var y = e.changedTouches[0].clientY;
   e.x = x;
   e.y = y;
 
-  emitter.emit('tm', e)
-})
+  emitter.emit("tm", e);
+});
 
-c.addEventListener('touchend', function(e) {
+c.addEventListener("touchend", function (e) {
   var x = e.changedTouches[0].clientX;
   var y = e.changedTouches[0].clientY;
   e.x = x;
   e.y = y;
 
-  emitter.emit('te', e)
-})
+  emitter.emit("te", e);
+});

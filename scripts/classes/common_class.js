@@ -8,9 +8,13 @@ class Script {
   }
 }
 
+function ID(digits = 5) {
+  return Math.floor(Math.random() * eval("9E+" + digits));
+}
+
 class ClassicEntity {
   constructor() {
-    this.id = Math.floor(Math.random() * 999999999)
+    this.id = Math.floor(Math.random() * 999999999);
   }
   x = 0;
   y = 0;
@@ -19,12 +23,8 @@ class ClassicEntity {
   render = true;
   fixed = true;
 
-  render() {
-
-  }
-  update() {
-
-  }
+  render() {}
+  update() {}
   send() {
     ws.STORE_CLASSIC_ENTITY.push(this);
     return this;
@@ -33,10 +33,8 @@ class ClassicEntity {
     var id = this.id;
     for (var i = 0; i < ws.STORE_CLASSIC_ENTITY.length; i++) {
       if (id == ws.STORE_CLASSIC_ENTITY[i].id) {
-        ws.STORE_CLASSIC_ENTITY.splice(i, 1)
+        ws.STORE_CLASSIC_ENTITY.splice(i, 1);
       }
     }
   }
 }
-
-
