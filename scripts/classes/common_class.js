@@ -14,7 +14,8 @@ function ID(digits = 5) {
 
 class ClassicEntity {
   constructor() {
-    this.id = Math.floor(Math.random() * 999999999)
+    this.id = Math.floor(Math.random() * 999999999);
+    this.z = (ws.ZINDEX_ORDER += 1);
   }
   x = 0;
   y = 0;

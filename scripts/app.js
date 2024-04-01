@@ -27,18 +27,28 @@ let app = {
   cameraY: 0,
   classicStore: [],
   use: {
-    isPointInsideBBox(bbox, pointData = { x: 0, y: 0 }) {
-      var x = pointData.x,
-        y = pointData.y;
+    isPointInsideBBox(bbox, point = { x: 0, y: 0 }) {
+      var x = point.x,
+        y = point.y;
       var data = bbox;
+
+      return (point.x >= bbox.x &&
+        point.x <= bbox.x + bbox.width &&
+        point.y >= bbox.y &&
+        point.y <= bbox.y + bbox.height)
 
       if (data.x < x && (data.x + data.width) > x && data.y > y && (data.y + data.height) > y) {
         return true;
       } else {
         return false;
       }
-
-      console.log(bbox, x, y)
+    },
+    circleIntersect(x1, y1, r1, x2, y2, r2) {
+      // Calculate the distance between the two circles 
+      let squareDistance = (x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2);
+      // When the distance is smaller or equal to the sum 
+      // of the two radius, the circles touch or overlap
+      return squareDistance <= ((r1 + r2) * (r1 + r2))
     },
     defaultContextUseBy(callback) {
       ctx.restore();
@@ -52,7 +62,7 @@ let app = {
     },
     loader(pathArr = [], opt = {
       onfinish: () => {},
-      onloadfile: ()=>{}
+      onloadfile: () => {}
     }) {
 
       if (pathArr.length == 0) throw "ERROR: parameter 'pathArr' is undefined :: 'pathArr' is empty array or undefined ";
@@ -127,6 +137,11 @@ let app = {
     var cameraY = (-(subY - (innerHeight / 2)));
 
     var classicStore = ws.STORE_CLASSIC_ENTITY;
+
+    classicStore.sort(function(a, b) {
+      return a.z - b.z;
+    })
+
     for (var i = 0; i < classicStore.length; i++) {
       var classicEntity = classicStore[i];
       classicEntity.update();

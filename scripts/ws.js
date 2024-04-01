@@ -12,6 +12,8 @@ const ws = {
   APP: app,
   CTX: ctx,
   VERSION: '1.0',
+  ZINDEX_UI: 400,
+  ZINDEX_ORDER: 1,
   EVENT_ON_FILE_LOADS: ()=>{},
   EVENT_ON_FILE_LOAD_FINSHED: ()=>{},
   ASSETS: {

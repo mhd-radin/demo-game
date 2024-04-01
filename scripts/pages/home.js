@@ -21,16 +21,6 @@ ws.SCRIPT_HOME_PAGE = new Script(function() {
   }
   dotsBg.fixed = false;
 
-  let text = new ClassicEntity().send();
-  text.render = function() {
-    ctx.fillStyle = '#fff';
-    ctx.font = '19px gamefont';
-    ctx.fillText('TIME', 0, 0)
-  }
-  text.z = 9999;
-  console.log(app.classicStore[app.classicStore.length - 1])
-
-
   var playButton = new ClassicEntity().send();
   playButton.update = function() {
     playButton.width = 200;
