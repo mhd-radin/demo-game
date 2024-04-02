@@ -12,7 +12,8 @@ ws.SCRIPT_GAME_PAGE = new Script(function() {
   //joy.x = (joy.radius + 10);
   //joy.y = (app.height - (joy.radius + 10))
   joy._eventEmitter.on('update', function(e) {
-    player.rotation = e.angleRadi
+    player.rotation = e.angleRadi;
+    player.speed = 1+ (e.distanceJoy / 2000)
   })
 
   class Bullet {
@@ -52,17 +53,13 @@ ws.SCRIPT_GAME_PAGE = new Script(function() {
       }
     }
 
-    setInterval(function() {
-      player.rotation += Math.sin(Math.random()) / 4;
-    }, 2000)
-
     playerEntity.render = function() {
       var asset = getVehicleAssetByName(player.assetName);
 
       player.x += Math.cos(player.rotation) * player.speed;
       player.y += Math.sin(player.rotation) * player.speed;
       player.assetName = (player.speed >= (2)) ? player.vehicle + '.boost' : player.vehicle + '.move'
-      player.speed = (player.assetName == player.vehicle + '.move') ? (Math.random()) : Math.random() / 5;
+     // player.speed = (player.assetName == player.vehicle + '.move') ? (Math.random()) : Math.random() / 5;
 
       //if (thisPlayer) {thisPlayer.speed = document.getElementById('speed').value ;
       //thisPlayer.rotation = document.getElementById('angle').value / 100}

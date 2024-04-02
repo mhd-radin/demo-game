@@ -6,6 +6,7 @@ ws.SCRIPT_HOME_PAGE = new Script(function() {
 
   bg.render = function() {
     ctx.fillStyle = '#141628'
+    //'#17171F' || '#141628'
     ctx.fillRect(0, 0, 1000, 1000)
     //ctx.drawImage(mainBgImg, 0, 0, 960, 540, 0, 0, (960*1.5), (540*1.5));
   }

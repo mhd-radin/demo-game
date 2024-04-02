@@ -21,15 +21,14 @@ class ClassicEntity {
   y = 0;
   width = 0;
   height = 0;
-  render = true;
+  isRender = true;
   fixed = true;
+  img = false;
 
-  render() {
-
+  render(){
+    
   }
-  update() {
-
-  }
+  update = false
   send() {
     ws.STORE_CLASSIC_ENTITY.push(this);
     return this;

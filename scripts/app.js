@@ -109,7 +109,7 @@ let app = {
     this.height = c.height;
   },
   init() {
-    this.scale = 2
+    this.scale = 1.5;
     this.fillscreen();
     ctx.scale(app.scale, app.scale);
     ctx.save();
@@ -117,7 +117,7 @@ let app = {
 
     setInterval(function() {
       window.requestAnimationFrame(ws.UPDATE_APP);
-    }, (1000 / 45));
+    }, (1000 / 50));
   },
   update() {
     app.time.nowSec = performance.now();
@@ -144,9 +144,9 @@ let app = {
 
     for (var i = 0; i < classicStore.length; i++) {
       var classicEntity = classicStore[i];
-      classicEntity.update();
+      if (classicEntity.update) classicEntity.update();
 
-      if (classicEntity.render) {
+      if (classicEntity.isRender) {
         ctx.save();
         if (classicEntity.fixed == false) {
           //console.log('This Element not fixed ID -> '+classicEntity.id, ws.APP.cameraX)
