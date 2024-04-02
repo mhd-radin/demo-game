@@ -40,9 +40,10 @@ ws.SCRIPT_ROOM_PAGE = new Script(function() {
   	
   	
     app.connectScript(ws.PATH_PAGES + 'game.js').onload = function() {
-      ws.SCRIPT_GAME_PAGE.run()
+    app.connectScript(ws.PATH_PAGES + 'game_ui.js').onload = function() {
+      ws.SCRIPT_GAME_PAGE.run();
     }
-  }
+  }}
   
   setTimeout(function(){
   	nextPage();

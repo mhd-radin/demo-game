@@ -6,9 +6,6 @@ ws.SCRIPT_GAME_PAGE = new Script(function() {
   player.assetName = 'skiber.move';
   console.log(player)
 
-  var joy = new Joystick(110, innerHeight - 110);
-  joy.radius = app.height / 15;
-  joy.joyRadius = joy.radius / 2.5;
   //joy.x = (joy.radius + 10);
   //joy.y = (app.height - (joy.radius + 10))
   joy._eventEmitter.on('update', function(e) {
