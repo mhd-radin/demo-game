@@ -36,6 +36,9 @@ class IButton {
         (-self.w / 2), (-self.h / 2), self.w, self.h);
     }
 
+    this.btn_entity.z = ws.ZINDEX_UI + ws.ZINDEX_ORDER;
+    this.img_entity.z = ws.ZINDEX_UI + ws.ZINDEX_ORDER;
+
     emitter.on('ts', function(e) {
       if (app.use.isPointInsideBBox({
           x: self.x,
@@ -44,6 +47,17 @@ class IButton {
           height: self.h
         }, e)) {
         self.emitter.emit('click', e)
+      }
+    });
+
+    emitter.on('te', function(e) {
+      if (app.use.isPointInsideBBox({
+          x: self.x,
+          y: self.y,
+          width: self.w,
+          height: self.h
+        }, e)) {
+        self.emitter.emit('te', e)
       }
     });
   }
@@ -88,13 +102,16 @@ class TButton {
     this.text_entity.render = function() {
       ctx.font = (self.r / 2) + 'px gamefont';
       ctx.filter = self.filter;
-      ctx.translate(self.x + (self.r + (ctx.measureText(self.text).width/4.5)), self.y + (self.r + (r / 1.5)))
+      ctx.translate(self.x + (self.r+(self.r/2) - (ctx.measureText(self.text).width/2)), self.y + (self.r + (r / 1.5)))
       ctx.scale(self.scale, self.scale);
       ctx.rotate(self.rotate)
       ctx.fillStyle = '#fff';
 
       ctx.fillText(self.text, (-self.r / 2), (-self.r / 2))
     }
+
+    this.btn_entity.z = ws.ZINDEX_UI + ws.ZINDEX_ORDER;
+    this.text_entity.z = ws.ZINDEX_UI + ws.ZINDEX_ORDER;
 
     emitter.on('ts', function(e) {
       if (app.use.isPointInsideBBox({
@@ -104,6 +121,17 @@ class TButton {
           height: self.r * 2
         }, e)) {
         self.emitter.emit('click', e)
+      }
+    });
+
+    emitter.on('te', function(e) {
+      if (app.use.isPointInsideBBox({
+          x: self.x,
+          y: self.y,
+          width: self.r * 2,
+          height: self.r * 2
+        }, e)) {
+        self.emitter.emit('te', e)
       }
     });
   }
@@ -116,18 +144,4 @@ class TButton {
   off(type, handle) {
     this.emitter.off(type, handle)
   }
-}
-
-var img = new Image();
-
-
-img.src = getVehicleAssetByName('skiber.idle').path
-img.onload = () => {
-  var ib = new TButton('CLICK IT', 50, 50, 80);
-  ib.filter = 'brightness(110%)';
-  var em = function(e) {
-    app.log('EVENT ' + Math.random());
-    ib.off('click', em)
-  }
-  ib.on('click', em);
 }

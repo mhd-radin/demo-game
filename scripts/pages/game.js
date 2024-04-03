@@ -12,7 +12,18 @@ ws.SCRIPT_GAME_PAGE = new Script(function() {
     player.rotation = e.angleRadi;
     player.speed = 1+ (e.distanceJoy / 2000)
   })
-
+  
+  function properBtnEventHandleTS() {
+    player.vehicle = ['skiber', 'woober', 'fighter'][Math.floor(Math.random() * 3)] ;
+  }
+  
+  function properBtnEventHandleTE(param) {
+    //player.vehicle = 1.5;
+  }
+  
+  properBtn.on('click', properBtnEventHandleTS)
+  properBtn.on('te', properBtnEventHandleTE)
+  
   class Bullet {
     x = 0;
     y = 0;
