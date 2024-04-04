@@ -98,7 +98,7 @@ class Joystick {
     })
 
     emitter.on('te', function(e) {
-      if (self.dataTS.id == e.id || e.id == 0){
+      if (self.isTS && self.dataTS.id == e.id){
       self.joyPositionX = self.x;
       self.joyPositionY = self.y;
       self.isTS = false;

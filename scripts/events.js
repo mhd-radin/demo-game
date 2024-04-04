@@ -52,7 +52,7 @@ c.addEventListener('touchstart', function(e) {
 });
 
 c.addEventListener('touchmove', function(e) {
-  for (var i = 0; i < e.touches.length; i++) {
+  for (var i = 0; i < e.changedTouches.length; i++) {
     var touch = e.changedTouches[i];
     var x = touch.clientX;
     var y = touch.clientY;
@@ -69,9 +69,8 @@ c.addEventListener('touchmove', function(e) {
 });
 
 c.addEventListener('touchend', function(e) {
-  for (var i = 0; i < e.touches.length; i++) {
+  for (var i = 0; i < e.changedTouches.length; i++) {
     var touch = e.changedTouches[i];
-
     var x = touch.clientX;
     var y = touch.clientY;
 
@@ -81,6 +80,8 @@ c.addEventListener('touchend', function(e) {
       y: y,
       id: touch.identifier // unique identifier for the touch
     };
+    
+    console.log(touchEvent)
 
     emitter.emit('te', touchEvent);
   }

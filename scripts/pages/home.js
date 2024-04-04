@@ -50,8 +50,8 @@ ws.SCRIPT_HOME_PAGE = new Script(function() {
 
   function toPlay(e) {
     if (app.use.isPointInsideBBox({
-        x: (playButton.x + 25),
-        y: (playButton.y + 25),
+        x: (playButton.x),
+        y: (playButton.y),
         width: (playButton.width + 400),
         height: (playButton.height + 400),
       }, e)) {
