@@ -14,15 +14,15 @@ ws.SCRIPT_GAME_PAGE = new Script(function() {
   })
   
   function properBtnEventHandleTS() {
-    player.vehicle = ['skiber', 'woober', 'fighter'][Math.floor(Math.random() * 3)] ;
+    player.vehicle = 'woober'
   }
   
   function properBtnEventHandleTE(param) {
-    //player.vehicle = 1.5;
+    player.vehicle = 'skiber';
   }
   
-  properBtn.on('click', properBtnEventHandleTS)
-  properBtn.on('te', properBtnEventHandleTE)
+  fireBtn.on('click', properBtnEventHandleTS)
+  fireBtn.on('te', properBtnEventHandleTE)
   
   class Bullet {
     x = 0;

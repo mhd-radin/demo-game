@@ -35,28 +35,80 @@ var emitter = app.events = new EventEmitter();
 const EventController = emitter;
 
 c.addEventListener('touchstart', function(e) {
-  var x = e.touches[0].clientX;
-  var y = e.touches[0].clientY;
-  e.x = x;
-  e.y = y;
+  for (var i = 0; i < e.touches.length; i++) {
+    var touch = e.touches[i];
+    var x = touch.clientX;
+    var y = touch.clientY;
 
-  emitter.emit('ts', e)
-})
+    // Create a new event object for each touch
+    var touchEvent = {
+      x: x,
+      y: y,
+      id: touch.identifier // unique identifier for the touch
+    };
+
+    emitter.emit('ts', touchEvent);
+  }
+});
 
 c.addEventListener('touchmove', function(e) {
-  var x = e.changedTouches[0].clientX;
-  var y = e.changedTouches[0].clientY;
-  e.x = x;
-  e.y = y;
+  for (var i = 0; i < e.touches.length; i++) {
+    var touch = e.changedTouches[i];
+    var x = touch.clientX;
+    var y = touch.clientY;
 
-  emitter.emit('tm', e)
-})
+    // Create a new event object for each touch
+    var touchEvent = {
+      x: x,
+      y: y,
+      id: touch.identifier // unique identifier for the touch
+    };
+
+    emitter.emit('tm', touchEvent);
+  }
+});
 
 c.addEventListener('touchend', function(e) {
+  for (var i = 0; i < e.touches.length; i++) {
+    var touch = e.changedTouches[i];
+
+    var x = touch.clientX;
+    var y = touch.clientY;
+
+    // Create a new event object for each touch
+    var touchEvent = {
+      x: x,
+      y: y,
+      id: touch.identifier // unique identifier for the touch
+    };
+
+    emitter.emit('te', touchEvent);
+  }
+});
+
+// c.addEventListener('touchstart', function(e) {
+//   var x = e.touches[0].clientX;
+//   var y = e.touches[0].clientY;
+//   e.x = x;
+//   e.y = y;
+//   console.log(e.identifier)
+//   emitter.emit('ts', e)
+// })
+
+// c.addEventListener('touchmove', function(e) {
+//   var x = e.changedTouches[0].clientX;
+//   var y = e.changedTouches[0].clientY;
+//   e.x = x;
+//   e.y = y;
+
+//   emitter.emit('tm', e)
+// })
+
+/*c.addEventListener('touchend', function(e) {
   var x = e.changedTouches[0].clientX;
   var y = e.changedTouches[0].clientY;
   e.x = x;
   e.y = y;
 
   emitter.emit('te', e)
-})
+})*/

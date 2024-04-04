@@ -47,11 +47,11 @@ class Joystick {
       ctx.closePath();
     }
 
-    emitter.on('ts', function(e) {
-      var evt = {
+    emitter.on('ts', function(evt) {
+      /*var evt = {
         x: e.x,
         y: e.y
-      }
+      }*/
       if (app.use.isPointInsideBBox({
           x: (self.x - self.radius),
           y: (self.y - self.radius),
@@ -77,8 +77,9 @@ class Joystick {
         width: self.radius * 2,
         height: self.radius * 2
       }
-
-      if (self.isTS) {
+      
+      
+      if (self.isTS && self.dataTS.id == e.id) {
         self.joyPositionX = evt.x;
         self.joyPositionY = evt.y;
         self.angleRadi = Math.atan2((evt.y - self.dataTS.y), (evt.x - self.dataTS.x));
@@ -97,13 +98,14 @@ class Joystick {
     })
 
     emitter.on('te', function(e) {
+      if (self.dataTS.id == e.id || e.id == 0){
       self.joyPositionX = self.x;
       self.joyPositionY = self.y;
       self.isTS = false;
       self.distanceJoy = 0;
       self.dataTS = { x: 0, y: 0 };
       self.joyX = self.joyY = 0;
-      self._eventEmitter.emit('update', self)
+      self._eventEmitter.emit('update', self)}
     })
   }
 }

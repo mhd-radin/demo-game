@@ -40,6 +40,11 @@ class IButton {
     this.img_entity.z = ws.ZINDEX_UI + ws.ZINDEX_ORDER;
 
     emitter.on('ts', function(e) {
+      // if (){ 
+      //   e.x = e.touches[1].clientX;
+      //   e.y = e.touches[1].clientY;
+      //   console.log(e.x)
+      // }
       if (app.use.isPointInsideBBox({
           x: self.x,
           y: self.y,

@@ -117,7 +117,7 @@ let app = {
 
     setInterval(function() {
       window.requestAnimationFrame(ws.UPDATE_APP);
-    }, (1000 / 50));
+    }, (1000 / 60));
   },
   update() {
     app.time.nowSec = performance.now();
