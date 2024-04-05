@@ -36,11 +36,12 @@ ws.SCRIPT_HOME_PAGE = new Script(function() {
     var path = new Path2D();
 
     path.roundRect(playButton.x, playButton.y, playButton.width, playButton.height, Math.PI * 8)
-    ctx.fillStyle = '#284A9B'
+    ctx.fillStyle = '#28769B90'
     ctx.lineWidth = strokeWidth;
-    ctx.shadowColor = '#284A9B'
-    ctx.shadowBlur = strokeWidth * 1.2
+    ctx.strokeStyle = '#28769B'
+    //ctx.shadowBlur = strokeWidth * 1.2
     ctx.fill(path)
+    ctx.stroke(path)
 
     ctx.font = '18px gamefont'
     ctx.fillStyle = '#fff'

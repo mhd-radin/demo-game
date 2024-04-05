@@ -21,8 +21,13 @@ ws.SCRIPT_GAME_PAGE = new Script(function() {
     player.vehicle = 'skiber';
   }
   
-  fireBtn.on('click', properBtnEventHandleTS)
-  fireBtn.on('te', properBtnEventHandleTE)
+  fireBtn.on('click', properBtnEventHandleTS);
+  fireBtn.on('te', properBtnEventHandleTE);
+boostBtn.on('click', properBtnEventHandleTS);
+  boostBtn.on('te', properBtnEventHandleTE);
+  pickUBtn.on('click', properBtnEventHandleTS);
+  pickUBtn.on('te', properBtnEventHandleTE);
+  
   
   class Bullet {
     x = 0;

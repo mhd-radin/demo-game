@@ -35,6 +35,7 @@ var emitter = app.events = new EventEmitter();
 const EventController = emitter;
 
 c.addEventListener('touchstart', function(e) {
+  //if (Sound) new Sound('/assets/sounds/click.wav').play();
   for (var i = 0; i < e.touches.length; i++) {
     var touch = e.touches[i];
     var x = touch.clientX;
@@ -80,8 +81,6 @@ c.addEventListener('touchend', function(e) {
       y: y,
       id: touch.identifier // unique identifier for the touch
     };
-    
-    console.log(touchEvent)
 
     emitter.emit('te', touchEvent);
   }
