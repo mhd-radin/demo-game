@@ -10,6 +10,7 @@ var boostBtn = new TButton('BOOST', innerWidth - 100, innerHeight - 105, 35);
 var pickUBtn = new TButton('P/U', innerWidth - 180, innerHeight - 115, 30);
 
 const room = {
+  time: 0,
   name: '#SYD46E7U',
   logs: [{
     msg: 'game started!',
@@ -25,6 +26,7 @@ const room = {
 }
 
 room.entity.render = function() {
+  room.time+=1;
   for (var i = 0; i < 3; i++) {
     var data = room.logs[i];
     if (data) {
@@ -54,9 +56,88 @@ room.entity.z = ws.ZINDEX_UI + ws.ZINDEX_ORDER;
 
 var roomSecondRender = new ClassicEntity().send();
 roomSecondRender.render = function() {
+  // Convert seconds to time format 
+  var sec = room.time / 60;
+  var minutes = Math.floor(sec / 60); 
+  var seconds = Math.floor(sec % 60); 
+  // Formatting the time with leading zeros if necessary 
+  var strTime = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`; 
+
+  
+  var text = room.name+' '+strTime;
   ctx.font = '18px gamefont';
   ctx.fillStyle = ws.COLOR_YELLOW;
-  var w = ctx.measureText(room.name).width;
-  ctx.fillText(room.name, (innerWidth - w - 16), 18);
+  var w = ctx.measureText(text).width;
+  ctx.fillText(text, (innerWidth - w - 16), 18);
 }
-roomSecondRender.z = ws.ZINDEX_ORDER + ws.ZINDEX_UI
+roomSecondRender.z = ws.ZINDEX_ORDER + ws.ZINDEX_UI;
+
+var chatButtonUi = new ClassicEntity().send();
+var iconsPackImg = new Image();
+iconsPackImg.src = '/assets/icons/UiIconsPack_Transparent_Icons.png';
+iconsPackImg.onload = function () {
+
+chatButtonUi.render = function () {
+  ctx.drawImage(iconsPackImg, 
+  2003, 1555, 310, 265,
+  10, 10, 45, 45);
+}}
+
+var chatBtnBBox = {
+  x: 10, y: 10, width: 40, height: 40
+}
+
+var powerUpsDisplay = new ClassicEntity().send();
+powerUpsDisplay.render = function () {
+  ctx.drawImage(iconsPackImg,
+    360, 2090, 310, 310,
+    10, 60, 30, 30);
+  
+  ctx.font = '16px gamefont';
+  ctx.fillStyle = '#fff'
+  ctx.fillText(app.time.calculatedFPS, 40, 80)
+}
+
+var pointsDisplay = new ClassicEntity().send();
+var coinImg = new Image();
+coinImg.src = '/assets/icons/robux.png';
+pointsDisplay.render = function () {
+  ctx.drawImage(iconsPackImg,
+    310*2, 310*3, 310, 310,
+    7, 85, 30, 30);
+  ctx.drawImage(coinImg, 7, 90, 30, 30)
+    
+  ctx.font = '16px gamefont';
+  ctx.fillStyle = ws.COLOR_GREEN;
+  ctx.fillText('3', 40, 110)
+}
+
+var weaponDisplay = new ClassicEntity().send();
+weaponDisplay.render = function () {
+  var path = new Path2D();
+  path.moveTo(20, 0);
+  path.lineTo(140, 0);
+  path.lineTo(150, 10);
+  path.lineTo(150, 50);
+  path.lineTo(10, 50);
+  path.lineTo(0, 40);
+  path.lineTo(0, 0);
+  path.closePath();
+  
+  ctx.translate(5, 130)
+  ctx.strokeStyle = ws.COLOR_BLUE;
+  ctx.lineWidth = 2;
+  ctx.stroke(path)
+  ctx.fillStyle = ws.COLOR_BLUE + '30';
+  ctx.fill(path)
+  
+  ctx.font = '23px gamefont'
+  ctx.globalCompositeOperation = 'lighter'
+  ctx.fillStyle = ws.COLOR_BLUE
+  ctx.fillText('LASER 2x', 20, 30);
+  
+  ctx.font = '12px gamefont';
+  ctx.fillText('ammo 150/35', 20, 42)
+}
+
+weaponDisplay.z = pointsDisplay.z = powerUpsDisplay.z = chatButtonUi.z = ws.ZINDEX_UI + ws.ZINDEX_ORDER 

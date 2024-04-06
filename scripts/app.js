@@ -94,6 +94,9 @@ let app = {
     pastSec: Date.now(),
     nowSec: Date.now(),
     dt: 0.03,
+    calculatedFPS: 0,
+    _calculatedFPS: 0,
+    aDT: 0
   },
   events: {
 
@@ -158,7 +161,14 @@ let app = {
     }
 
     app.time.pastSec = performance.now();
-    app.time.dt = (app.time.pastSec - app.time.nowSec)
+    app.time.dt = (app.time.pastSec - app.time.nowSec);
+    
+    app.time.aDT += app.time.dt;
+    app.time._calculatedFPS += 1;
+    if (app.time.aDT >= (6000/15)) {
+      app.time.calculatedFPS = app.time._calculatedFPS;
+      app.time._calculatedFPS = app.time.aDT = 0;
+    }
   },
   connectScript(srcURL) {
     var script = document.createElement('script');

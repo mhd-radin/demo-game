@@ -13,15 +13,6 @@ ws.SCRIPT_HOME_PAGE = new Script(function() {
 
   let dotsBg = new ClassicEntity().send();
 
-  let dotsBgImg = new Image();
-  dotsBgImg.src = ws.PATH_ASSET_IMAGES + 'bg/space_fl1.png';
-
-  dotsBg.render = function() {
-    ctx.fillStyle = ctx.createPattern(dotsBgImg, 'repeat')
-    ctx.fillRect((-1000), (-1000), 10000, 10000);
-  }
-  dotsBg.fixed = false;
-
   var playButton = new ClassicEntity().send();
   playButton.update = function() {
     playButton.width = 200;

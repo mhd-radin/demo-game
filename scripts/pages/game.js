@@ -3,22 +3,22 @@ ws.SCRIPT_GAME_PAGE = new Script(function() {
   let myPlayer = player;
   player.x = ID(2);
   player.y = ID(2);
-  player.assetName = 'skiber.move';
+  player.assetName = 'woober.move';
   console.log(player)
 
   //joy.x = (joy.radius + 10);
   //joy.y = (app.height - (joy.radius + 10))
   joy._eventEmitter.on('update', function(e) {
     player.rotation = e.angleRadi;
-    player.speed = 1+ (e.distanceJoy / 2000)
+    player.speed = (1+ (e.distanceJoy / 2000) > 6 ) ? 6 : 1+ (e.distanceJoy / 2000);
   })
   
   function properBtnEventHandleTS() {
-    player.vehicle = 'woober'
+    player.speed = 8
   }
   
   function properBtnEventHandleTE(param) {
-    player.vehicle = 'skiber';
+    player.speed = 1
   }
   
   fireBtn.on('click', properBtnEventHandleTS);
@@ -49,7 +49,8 @@ boostBtn.on('click', properBtnEventHandleTS);
 
   allPlayers.forEach(function(player = new Player(), i) {
     var currentFrame = player.currentFrame;
-    var img = createImageByAsset(getVehicleAssetByName(player.assetName));
+          var asset = getVehicleAssetByName(player.assetName);
+    var img = createImageByAsset(asset);
 
     img.onchange = function() {
       currentFrame = 1;
@@ -59,19 +60,23 @@ boostBtn.on('click', properBtnEventHandleTS);
 
     var playerEntity = new ClassicEntity().send();
     playerEntity.fixed = false;
-    if (thisPlayer != false) {
+    if (thisPlayer) {
       playerEntity.update = function() {
         app.cameraX = thisPlayer.x;
         app.cameraY = thisPlayer.y;
+        
+        player.x += Math.cos(player.rotation) * player.speed;
+      player.y += Math.sin(player.rotation) * player.speed;
       }
-    }
-
-    playerEntity.render = function() {
-      var asset = getVehicleAssetByName(player.assetName);
-
+    } else {
+    
+    playerEntity.update = function () {
       player.x += Math.cos(player.rotation) * player.speed;
       player.y += Math.sin(player.rotation) * player.speed;
-      player.assetName = (player.speed >= (2)) ? player.vehicle + '.boost' : player.vehicle + '.move'
+    }}
+
+    playerEntity.render = function() {
+
      // player.speed = (player.assetName == player.vehicle + '.move') ? (Math.random()) : Math.random() / 5;
 
       //if (thisPlayer) {thisPlayer.speed = document.getElementById('speed').value ;
@@ -79,7 +84,7 @@ boostBtn.on('click', properBtnEventHandleTS);
 
       img.src = asset.path;
       ctx.translate(player.x, player.y)
-      ctx.rotate(player.rotation);
+      ctx.rotate(player.rotation+ (asset.r ? asset.r : 0));
       var assetX = asset.w * currentFrame,
         assetY = asset.y;
 
