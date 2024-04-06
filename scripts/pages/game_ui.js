@@ -9,10 +9,11 @@ var boostBtn = new TButton('BOOST', innerWidth - 100, innerHeight - 105, 35);
 
 var pickUBtn = new TButton('P/U', innerWidth - 180, innerHeight - 115, 30);
 
-var room = {
+const room = {
+  name: '#SYD46E7U',
   logs: [{
-    msg: 'PlayerA Killed by PlayerB',
-    color: ws.COLOR_GREEN, // green
+    msg: 'game started!',
+    color: ws.COLOR_WHITE,
     font: 'gamefont',
     duration: 25,
   }],
@@ -42,11 +43,20 @@ room.entity.render = function() {
 }
 
 room.log({
-  msg: 'qw joined now',
+  msg: '15 Players Joined',
   font: 'gamefont',
-  color: ws.COLOR_BLUE, // blue
-  duration: 25
+  color: ws.COLOR_BLUE,
+  duration: 30
 })
 
 
-room.entity.z = ws.ZINDEX_UI + ZINDEX_ORDER;
+room.entity.z = ws.ZINDEX_UI + ws.ZINDEX_ORDER;
+
+var roomSecondRender = new ClassicEntity().send();
+roomSecondRender.render = function() {
+  ctx.font = '18px gamefont';
+  ctx.fillStyle = ws.COLOR_YELLOW;
+  var w = ctx.measureText(room.name).width;
+  ctx.fillText(room.name, (innerWidth - w - 16), 18);
+}
+roomSecondRender.z = ws.ZINDEX_ORDER + ws.ZINDEX_UI

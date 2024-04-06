@@ -186,14 +186,20 @@ let app = {
 //   }
 // })
 
+
+
 app.connectScript('scripts/ws.js').onload = function() {
   app.connectScript('scripts/events.js').onload = function() {
     app.connectScript(ws.PATH_CLASSES + 'common_class.js').onload = () => {
-      app.connectScript(ws.PATH_CLASSES + 'player.js').onload = () => {
-        app.connectScript(ws.PATH_PAGES + 'home.js').onload = function() {
-          app.connectScript('scripts/methods/connectCommonScripts.js').onload = function() {
-            app.init();
-            ws.SCRIPT_HOME_PAGE.run();
+      app.connectScript(ws.PATH_CLASSES + 'assetAction.js').onload = () => {
+        app.connectScript(ws.PATH_METHODS + 'assetsData.js').onload = () => {
+          app.connectScript(ws.PATH_CLASSES + 'player.js').onload = () => {
+            app.connectScript(ws.PATH_PAGES + 'home.js').onload = function() {
+              app.connectScript('scripts/methods/connectCommonScripts.js').onload = function() {
+                app.init();
+                ws.SCRIPT_HOME_PAGE.run();
+              }
+            }
           }
         }
       }

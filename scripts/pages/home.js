@@ -53,8 +53,8 @@ ws.SCRIPT_HOME_PAGE = new Script(function() {
     if (app.use.isPointInsideBBox({
         x: (playButton.x),
         y: (playButton.y),
-        width: (playButton.width + 400),
-        height: (playButton.height + 400),
+        width: (playButton.width + 0),
+        height: (playButton.height + 0),
       }, e)) {
       var timer = setInterval(function() {
 

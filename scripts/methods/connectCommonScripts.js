@@ -1,8 +1,8 @@
 var scriptsToLoad = [
-  ws.PATH_METHODS+'assetManagement.js',
-  ws.PATH_CLASSES+'ui/joystick.js',
-  ws.PATH_CLASSES+'ui/circle_ibutton.js',
-  ws.PATH_CLASSES+'sound.js',
+  ws.PATH_METHODS + 'assetManagement.js',
+  ws.PATH_CLASSES + 'ui/joystick.js',
+  ws.PATH_CLASSES + 'ui/circle_ibutton.js',
+  ws.PATH_CLASSES + 'sound.js',
 ];
 
 app.use.loader(scriptsToLoad, {
