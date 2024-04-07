@@ -11,6 +11,8 @@ class IButton {
     this.rotate = 0;
     this.r = 40;
     this.scale = 1;
+    this.stroke = '#eee';
+    this.bg = '#ffffff50'
     this.emitter = new EventEmitter();
     var self = this;
 
@@ -18,9 +20,9 @@ class IButton {
       ctx.beginPath();
       ctx.scale(self.scale, self.scale);
       ctx.arc(self.x + (self.w / 2), self.y + (self.h / 2), self.r, 0, Math.PI * 2)
-      ctx.strokeStyle = '#eee'
+      ctx.strokeStyle = self.stroke;
       ctx.lineWidth = 4;
-      ctx.fillStyle = '#ffffff50';
+      ctx.fillStyle = self.bg;
       ctx.stroke();
       ctx.fill();
       ctx.closePath();

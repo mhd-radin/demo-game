@@ -25,7 +25,9 @@ ws.SCRIPT_GAME_PAGE = new Script(function() {
   fireBtn.on('te', properBtnEventHandleTE);
 boostBtn.on('click', properBtnEventHandleTS);
   boostBtn.on('te', properBtnEventHandleTE);
-  pickUBtn.on('click', properBtnEventHandleTS);
+  pickUBtn.on('click', function (){
+    window.location.reload();
+  });
   pickUBtn.on('te', properBtnEventHandleTE);
   
   

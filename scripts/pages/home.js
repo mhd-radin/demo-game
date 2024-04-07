@@ -19,6 +19,7 @@ ws.SCRIPT_HOME_PAGE = new Script(function() {
     playButton.height = 40;
     playButton.x = (window.innerWidth / 2) - (playButton.width / 2)
     playButton.y = (window.innerHeight / 2) - (playButton.height)
+    playButton.text = 'PLAY'
   }
   var strokeWidth = 1
   playButton.render = function() {
@@ -36,9 +37,39 @@ ws.SCRIPT_HOME_PAGE = new Script(function() {
 
     ctx.font = '18px gamefont'
     ctx.fillStyle = '#fff'
-    ctx.fillText('PLAY', playButton.x + (playButton.width / 2) - 15,
+    var tw = ctx.measureText(playButton.text).width
+    ctx.fillText(playButton.text, playButton.x + (playButton.width / 2) - (tw/2),
       playButton.y + (playButton.height / 2) + 7)
   }
+  
+  var settingsButton = new ClassicEntity().send();
+  settingsButton.update = function() {
+    settingsButton.width = 200;
+    settingsButton.height = 40;
+    settingsButton.x = (window.innerWidth / 2) - (settingsButton.width / 2)
+    settingsButton.y = (window.innerHeight / 2) + (settingsButton.height/3)
+    settingsButton.text = 'SETTINGS';
+  }
+  
+  settingsButton.render = function() {
+    var path = new Path2D();
+
+    path.roundRect(settingsButton.x, settingsButton.y, settingsButton.width, settingsButton.height, Math.PI * 8)
+    ctx.fillStyle = '#28769B90'
+    ctx.lineWidth = strokeWidth;
+    ctx.strokeStyle = '#28769B'
+    ctx.shadowBlur = strokeWidth * 1.2
+    ctx.fill(path)
+    ctx.stroke(path)
+
+    ctx.font = '18px gamefont'
+    ctx.fillStyle = '#fff'
+    var tw = ctx.measureText(settingsButton.text).width
+    ctx.fillText(settingsButton.text, settingsButton.x + (settingsButton.width / 2) - (tw/2),
+      settingsButton.y + (settingsButton.height / 2) + 7)
+  }
+  
+  
 
   function toPlay(e) {
     if (app.use.isPointInsideBBox({
@@ -51,7 +82,8 @@ ws.SCRIPT_HOME_PAGE = new Script(function() {
 
         strokeWidth -= 1
         if (strokeWidth <= 0) {
-          playButton.destroyIt()
+          playButton.destroyIt();
+          settingsButton.destroyIt();
 
           app.connectScript(ws.PATH_PAGES + 'room.js').onload = function() {
             ws.SCRIPT_ROOM_PAGE.run();
