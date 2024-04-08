@@ -1,5 +1,5 @@
 var joy = new Joystick(110, innerHeight - (110));
-joy.radius = (app.height / 100)*8;
+joy.radius = (innerHeight / 100)*8;
 joy.joyRadius = joy.radius / 2.5;
 
 var fireBtn = new TButton('FIRE', innerWidth - 140, innerHeight - 230, 50);
@@ -9,13 +9,10 @@ var boostBtn = new TButton('BOOST', innerWidth - 100, innerHeight - 105, 35);
 
 var pickUBtn = new TButton('P/U', innerWidth - 180, innerHeight - 115, 30);
 
-function entityLayerToUI(entity) {
-  entity.z = ws.ZINDEX_UI + ws.ZINDEX_ORDER;
-}
-
 const room = {
   time: 0,
   name: '#SYD46E7U',
+  startedTime: app.time.pastSec,
   logs: [{
     msg: 'game started!',
     color: ws.COLOR_WHITE,
@@ -61,7 +58,7 @@ room.entity.z = ws.ZINDEX_UI + ws.ZINDEX_ORDER;
 var roomSecondRender = new ClassicEntity().send();
 roomSecondRender.render = function() {
   // Convert seconds to time format 
-  var sec = room.time / 60;
+  var sec = (app.time.nowSec - room.startedTime)/1000;
   var minutes = Math.floor(sec / 60);
   var seconds = Math.floor(sec % 60);
   // Formatting the time with leading zeros if necessary 
@@ -160,49 +157,7 @@ rightBox.render = function() {
   ctx.stroke(path)
 }
 
-entityLayerToUI(rightBox)
-
-class ImageCardOfTopRightBox {
-  constructor(iconImage, subtext = 'null') {
-    this.iconImage = iconImage;
-    this.crop = {
-      x: 0,
-      y: 0,
-      w: iconImage.width,
-      h: iconImage.height
-    }
-    this.bg = '#4AA452';
-    this.color = '#fff';
-    this.bColor = ws.COLOR_GREEN
-    this.subtext = subtext;
-    this.x = 0, this.y = 0;
-    this.entity = new ClassicEntity().send();
-
-    var self = this;
-    this.entity.render = function() {
-      var path = new Path2D();
-      path.roundRect(self.x, self.y, 40, 50, 5);
-
-      ctx.fillStyle = self.bg;
-      ctx.strokeStyle = self.bColor;
-      ctx.lineWidth = 2;
-      ctx.fill(path);
-      ctx.stroke(path);
-
-      ctx.drawImage(self.iconImage,
-        self.crop.x, self.crop.y, self.crop.w, self.crop.h,
-        self.x + 5, self.y + 5, 28, 28
-      )
-
-      ctx.fillStyle = '#fff';
-      ctx.font = '12px gamefont';
-      var tw = ctx.measureText(self.subtext).width
-      ctx.fillText(self.subtext, ((self.x + 20) - (tw / 2)), self.y + 45)
-    }
-
-    entityLayerToUI(this.entity)
-  }
-}
+entityLayerToUILayer(rightBox)
 
 var cloverImg = new Image();
 cloverImg.src = '/assets/icons/clover.png'

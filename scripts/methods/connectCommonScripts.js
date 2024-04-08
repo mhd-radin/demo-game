@@ -1,7 +1,9 @@
 var scriptsToLoad = [
+  ws.PATH_METHODS + 'entityMethods.js',
   ws.PATH_METHODS + 'assetManagement.js',
   ws.PATH_CLASSES + 'ui/joystick.js',
   ws.PATH_CLASSES + 'ui/circle_ibutton.js',
+  ws.PATH_CLASSES + 'ui/ImageCardOfTopRightBox.js',
   ws.PATH_CLASSES + 'sound.js',
 ];
 
