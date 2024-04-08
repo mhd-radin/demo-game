@@ -162,10 +162,10 @@ let app = {
 
     app.time.pastSec = performance.now();
     app.time.dt = (app.time.pastSec - app.time.nowSec);
-    
+
     app.time.aDT += app.time.dt;
     app.time._calculatedFPS += 1;
-    if (app.time.aDT >= (6000/15)) {
+    if (app.time.aDT >= (6000 / 15)) {
       app.time.calculatedFPS = app.time._calculatedFPS;
       app.time._calculatedFPS = app.time.aDT = 0;
     }

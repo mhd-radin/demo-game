@@ -38,19 +38,19 @@ ws.SCRIPT_HOME_PAGE = new Script(function() {
     ctx.font = '18px gamefont'
     ctx.fillStyle = '#fff'
     var tw = ctx.measureText(playButton.text).width
-    ctx.fillText(playButton.text, playButton.x + (playButton.width / 2) - (tw/2),
+    ctx.fillText(playButton.text, playButton.x + (playButton.width / 2) - (tw / 2),
       playButton.y + (playButton.height / 2) + 7)
   }
-  
+
   var settingsButton = new ClassicEntity().send();
   settingsButton.update = function() {
     settingsButton.width = 200;
     settingsButton.height = 40;
     settingsButton.x = (window.innerWidth / 2) - (settingsButton.width / 2)
-    settingsButton.y = (window.innerHeight / 2) + (settingsButton.height/3)
+    settingsButton.y = (window.innerHeight / 2) + (settingsButton.height / 3)
     settingsButton.text = 'SETTINGS';
   }
-  
+
   settingsButton.render = function() {
     var path = new Path2D();
 
@@ -65,11 +65,11 @@ ws.SCRIPT_HOME_PAGE = new Script(function() {
     ctx.font = '18px gamefont'
     ctx.fillStyle = '#fff'
     var tw = ctx.measureText(settingsButton.text).width
-    ctx.fillText(settingsButton.text, settingsButton.x + (settingsButton.width / 2) - (tw/2),
+    ctx.fillText(settingsButton.text, settingsButton.x + (settingsButton.width / 2) - (tw / 2),
       settingsButton.y + (settingsButton.height / 2) + 7)
   }
-  
-  
+
+
 
   function toPlay(e) {
     if (app.use.isPointInsideBBox({

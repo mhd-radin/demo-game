@@ -35,17 +35,18 @@ ws.SCRIPT_ROOM_PAGE = new Script(function() {
   }
 
   function nextPage() {
-  	versionTxt.destroyIt();
-  	playersText.destroyIt();
-  	
-  	
+    versionTxt.destroyIt();
+    playersText.destroyIt();
+
+
     app.connectScript(ws.PATH_PAGES + 'game.js').onload = function() {
-    app.connectScript(ws.PATH_PAGES + 'game_ui.js').onload = function() {
-      ws.SCRIPT_GAME_PAGE.run();
+      app.connectScript(ws.PATH_PAGES + 'game_ui.js').onload = function() {
+        ws.SCRIPT_GAME_PAGE.run();
+      }
     }
-  }}
-  
-  setTimeout(function(){
-  	nextPage();
+  }
+
+  setTimeout(function() {
+    nextPage();
   }, 2000)
 })

@@ -109,7 +109,7 @@ class TButton {
     this.text_entity.render = function() {
       ctx.font = (self.r / 2) + 'px gamefont';
       ctx.filter = self.filter;
-      ctx.translate(self.x + (self.r+(self.r/2) - (ctx.measureText(self.text).width/2)), self.y + (self.r + (r / 1.5)))
+      ctx.translate(self.x + (self.r + (self.r / 2) - (ctx.measureText(self.text).width / 2)), self.y + (self.r + (r / 1.5)))
       ctx.scale(self.scale, self.scale);
       ctx.rotate(self.rotate)
       ctx.fillStyle = '#fff';

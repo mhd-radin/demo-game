@@ -77,8 +77,8 @@ class Joystick {
         width: self.radius * 2,
         height: self.radius * 2
       }
-      
-      
+
+
       if (self.isTS && self.dataTS.id == e.id) {
         self.joyPositionX = evt.x;
         self.joyPositionY = evt.y;
@@ -98,14 +98,15 @@ class Joystick {
     })
 
     emitter.on('te', function(e) {
-      if (self.isTS && self.dataTS.id == e.id){
-      self.joyPositionX = self.x;
-      self.joyPositionY = self.y;
-      self.isTS = false;
-      self.distanceJoy = 0;
-      self.dataTS = { x: 0, y: 0 };
-      self.joyX = self.joyY = 0;
-      self._eventEmitter.emit('update', self)}
+      if (self.isTS && self.dataTS.id == e.id) {
+        self.joyPositionX = self.x;
+        self.joyPositionY = self.y;
+        self.isTS = false;
+        self.distanceJoy = 0;
+        self.dataTS = { x: 0, y: 0 };
+        self.joyX = self.joyY = 0;
+        self._eventEmitter.emit('update', self)
+      }
     })
   }
 }

@@ -25,8 +25,8 @@ class ClassicEntity {
   fixed = true;
   img = false;
 
-  render(){
-    
+  render() {
+
   }
   update = false
   send() {

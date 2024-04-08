@@ -5,17 +5,17 @@ class Player {
   x = 0;
   y = 0;
   speed = 1;
-   vehicle = 'skiber';
-   action = 'idle';
-   _assetName = 'skiber.idle';
+  vehicle = 'skiber';
+  action = 'idle';
+  _assetName = 'skiber.idle';
   //assetName = 'skiber.idle';
-  set assetName(name) { 
+  set assetName(name) {
     var splitedStr = name.split('.');
     this.vehicle = splitedStr[0];
     this.action = splitedStr[1];
     this._assetName = this.vehicle + '.' + this.action;
   }
-  get assetName(){
+  get assetName() {
     return this._assetName;
   }
   rotation = 0;

@@ -10,4 +10,3 @@ function createImageByAsset(asset) {
   img.src = asset.path;
   return img;
 }
-

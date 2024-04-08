@@ -1,5 +1,5 @@
 var joy = new Joystick(110, innerHeight - (110));
-joy.radius = (innerHeight / 100)*8;
+joy.radius = (innerHeight / 100) * 8;
 joy.joyRadius = joy.radius / 2.5;
 
 var fireBtn = new TButton('FIRE', innerWidth - 140, innerHeight - 230, 50);
@@ -58,7 +58,7 @@ room.entity.z = ws.ZINDEX_UI + ws.ZINDEX_ORDER;
 var roomSecondRender = new ClassicEntity().send();
 roomSecondRender.render = function() {
   // Convert seconds to time format 
-  var sec = (app.time.nowSec - room.startedTime)/1000;
+  var sec = (app.time.nowSec - room.startedTime) / 1000;
   var minutes = Math.floor(sec / 60);
   var seconds = Math.floor(sec % 60);
   // Formatting the time with leading zeros if necessary 
