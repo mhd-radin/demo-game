@@ -1,0 +1,78 @@
+body {
+	margin: 0;
+	color: #343438;
+	font-family: Arial, Helvetica, sans-serif
+}
+
+nav {
+	padding: 12px;
+	background: #eee;
+	box-shadow: 0 0 3px #ccc
+}
+
+h2, p {
+	margin: 3px;
+}
+
+#path {
+	color: #424242;
+	font-size: 12px;
+}
+
+.body {
+	display: flex;flex-direction: column;
+	padding: 6px;
+	overflow: scroll;
+}
+
+.box {
+	display: flex;flex-direction: row;
+	padding: 8px;
+	border-bottom: 1px solid #eee;
+	border-radius: 5px;
+	animation: blowUp 300ms 1;
+	transition: 300ms;
+}
+
+
+.box:hover, .box:hover * {
+	color: #fff !important;
+	background: #282A44;
+}
+
+.box .icon {
+	margin: 5px;
+	margin-right: 10px;
+	font-size: 23px
+}
+
+.box .about {
+	font-size: 10px;
+	color: #42445A;
+}
+
+.code {
+  background: #111;
+  border-radius: 3px;
+  min-width: 250px;
+}
+
+pre {
+	background: #111;
+	border-radius: 3px;
+	padding: 5px;
+}
+
+pre, code, code * {
+	word-break: break-all;
+	word-wrap: break-word;
+	white-space: pre-line;
+}
+
+@keyframes blowUp {
+	0% { 
+		background: #ccc;
+	}
+	100% { 
+		background: #fff;}
+}

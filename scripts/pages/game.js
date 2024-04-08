@@ -32,9 +32,30 @@ ws.SCRIPT_GAME_PAGE = new Script(function() {
 
 
   class Bullet {
-    x = 0;
-    y = 0;
+    constructor(x, y, angle, distance, speed = 5){
+      this.x = x; this.y = y;
+      this.angle = angle;
+      this.distance = distance;
+      this.directionX = Math.cos(this.angle)*this.distance;
+      this.directionY = Math.sin(this.angle)*this.distance;
+      this.currentDistance = 0;
+      this.speed = speed;
+      this.currentX = x;
+      this.currentY = y;
+    }
+    
+    move(){
+      if (this.currentX >= this.directionX && this.currentY >= this.directionY) return 0;
+      this.currentX += Math.cos(this.angle)*this.speed;
+            this.currentY += Math.sin(this.angle)*this.speed;
+      //this.distance = this.directionX - this.currentX;
+      console.log(this)
+    }
   }
+  
+  var b = new Bullet(50, 50, 60, 100, 0.7);
+  b.move();
+  b.move()
 
   let allPlayers = [];
 

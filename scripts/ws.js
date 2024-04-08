@@ -17,7 +17,7 @@ const ws = {
   COLOR_YELLOW: '#FFCB5E',
   COLOR_WHITE: '#ffffff',
   VERSION: '1.0',
-  ZINDEX_UI: 400,
+  ZINDEX_UI: 700,
   ZINDEX_ORDER: 1,
   EVENT_ON_FILE_LOADS: () => {},
   EVENT_ON_FILE_LOAD_FINSHED: () => {},
