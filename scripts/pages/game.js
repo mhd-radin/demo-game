@@ -58,7 +58,7 @@ ws.SCRIPT_GAME_PAGE = new Script(function() {
 
     move() {
       var self = this;
-      if (this.currentDistance >= this.distance) {
+      if (this.currentDistance >= (this.x + this.distance)) {
         for (var i = 0; i < ammoStore.length; i++) {
           var ammo = ammoStore[i];
           if (ammo.id == self.id) {
