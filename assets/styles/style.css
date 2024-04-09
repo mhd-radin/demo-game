@@ -13,3 +13,7 @@ body {
   src: url(../fonts/CallOfOpsDuty.ttf);
   /* url(../fonts/MouldyCheeseReg.ttf) */;
 }
+
+* {
+  user-select: none;
+}

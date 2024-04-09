@@ -1,3 +1,5 @@
+var ammoStore = [];
+
 ws.SCRIPT_GAME_PAGE = new Script(function() {
   let player = new Player();
   let myPlayer = player;
@@ -12,13 +14,20 @@ ws.SCRIPT_GAME_PAGE = new Script(function() {
     player.rotation = e.angleRadi;
     player.speed = (1 + (e.distanceJoy / 2000) > 6) ? 6 : 1 + (e.distanceJoy / 2000);
   })
+  
+  var timer = 1
 
   function properBtnEventHandleTS() {
-    player.speed = 8
+    timer = setInterval(function(){
+    var b = new Bullet(player.id, player.x, player.y, joy.angleRadi, 1000, 10);
+    ammoStore.push(b)
+  }, 50);
+    
   }
 
   function properBtnEventHandleTE(param) {
-    player.speed = 1
+    player.speed = 1;
+    clearInterval(timer)
   }
 
   fireBtn.on('click', properBtnEventHandleTS);
@@ -29,33 +38,59 @@ ws.SCRIPT_GAME_PAGE = new Script(function() {
     window.location.reload();
   });
   pickUBtn.on('te', properBtnEventHandleTE);
-
+  
 
   class Bullet {
-    constructor(x, y, angle, distance, speed = 5){
-      this.x = x; this.y = y;
+    constructor(playerID, x, y, angle, distance, speed = 0.1) {
+      this.x = x;
+      this.y = y;
       this.angle = angle;
       this.distance = distance;
-      this.directionX = Math.cos(this.angle)*this.distance;
-      this.directionY = Math.sin(this.angle)*this.distance;
+      this.directionX = Math.cos(this.angle) * this.distance;
+      this.directionY = Math.sin(this.angle) * this.distance;
       this.currentDistance = 0;
       this.speed = speed;
       this.currentX = x;
       this.currentY = y;
+      this.id = ID(3)
+      this.playerID = playerID
     }
-    
-    move(){
-      if (this.currentX >= this.directionX && this.currentY >= this.directionY) return 0;
-      this.currentX += Math.cos(this.angle)*this.speed;
-            this.currentY += Math.sin(this.angle)*this.speed;
-      //this.distance = this.directionX - this.currentX;
-      console.log(this)
+
+    move() {
+      var self = this;
+      if (this.currentDistance >= this.distance) {
+        for (var i = 0; i < ammoStore.length; i++) {
+          var ammo = ammoStore[i];
+          if (ammo.id == self.id) {
+           ammoStore.splice(i, 1)
+          }
+        }
+      };
+      this.currentX += Math.cos(this.angle) * this.speed;
+      this.currentY += Math.sin(this.angle) * this.speed;
+      this.currentDistance = Math.abs(this.directionX - this.currentX);
+      //console.log(this)
     }
   }
   
-  var b = new Bullet(50, 50, 60, 100, 0.7);
-  b.move();
-  b.move()
+  
+  
+  var bulletRender = function () {
+    ammoStore.forEach(function(ammo){
+    //var ammo = ammoStore[i];
+    ctx.save();
+    ammo.move();
+    ctx.fillStyle = '#fff'
+    ctx.translate((ammo.currentX), (ammo.currentY));
+    ctx.rotate(ammo.angle)
+    ctx.fillRect(-5, -1, 10, 2);
+    ctx.restore()
+    })
+  }
+  var bE = new ClassicEntity().send();
+  bE.fixed = false;
+  bE.render = bulletRender;
+  //console.log(b)
 
   let allPlayers = [];
 
@@ -90,6 +125,8 @@ ws.SCRIPT_GAME_PAGE = new Script(function() {
 
         player.x += Math.cos(player.rotation) * player.speed;
         player.y += Math.sin(player.rotation) * player.speed;
+        
+        app.log('X '+myPlayer.x+' Y '+myPlayer.y)
       }
     } else {
 

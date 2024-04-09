@@ -104,6 +104,9 @@ let app = {
   log(msg) {
     document.getElementById('log').innerHTML = msg;
   },
+  logger(msg) {
+    document.getElementById('log').innerHTML += '<br/> '+msg;
+  },
   fillscreen() {
     c.width = innerWidth * this.scale;
     c.height = innerHeight * this.scale;
@@ -240,3 +243,7 @@ window.onclick = function() {
 
   window.onclick = function() {}
 }
+
+document.querySelectorAll('*').forEach(function (elem) {
+  elem.onfullscreenerror = (elem.onerror = function (e){ app.log(e.type); })
+})
